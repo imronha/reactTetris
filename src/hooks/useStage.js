@@ -3,20 +3,26 @@ import { createStage } from "../gameHelpers";
 
 export const useStage = (player, resetPlayer) => {
   const [stage, setStage] = useState(createStage());
-  //   const [rowsCleared, setRowsCleared] = useState(0);
+  const [rowsCleared, setRowsCleared] = useState(0);
 
   useEffect(() => {
-    // setRowsCleared(0);
-    // const sweepRows = (newStage) =>
-    //   newStage.reduce((ack, row) => {
-    //     if (row.findIndex((cell) => cell[0] === 0) === -1) {
-    //       setRowsCleared((prev) => prev + 1);
-    //       ack.unshift(new Array(newStage[0].length).fill([0, "clear"]));
-    //       return ack;
-    //     }
-    //     ack.push(row);
-    //     return ack;
-    //   }, []);
+    // Clear rows function
+    setRowsCleared(0);
+    const scanRows = (newStage) =>
+      newStage.reduce((accumulator, row) => {
+        // Check if rows are 'merged' (aka not blank), return -1 if full row
+        if (row.findIndex((cell) => cell[0] === 0) === -1) {
+          setRowsCleared((prev) => prev + 1);
+
+          // Add empty rows at beginning of array for each row that was cleared
+          accumulator.unshift(new Array(newStage[0].length).fill([0, "clear"]));
+          return accumulator;
+        }
+
+        // Return the row if it is not full
+        accumulator.push(row);
+        return accumulator;
+      }, []);
 
     const updateStage = (prevStage) => {
       // First flush the stage
@@ -38,7 +44,7 @@ export const useStage = (player, resetPlayer) => {
       // Then check if we got some score if collided
       if (player.collided) {
         resetPlayer();
-        // return sweepRows(newStage);
+        return scanRows(newStage);
       }
       return newStage;
     };
@@ -47,7 +53,7 @@ export const useStage = (player, resetPlayer) => {
     setStage((prev) => updateStage(prev));
   }, [player, resetPlayer]);
 
-  return [stage, setStage];
+  return [stage, setStage, rowsCleared];
 };
 
 // import { useState, useEffect } from "react";

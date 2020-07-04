@@ -11,15 +11,14 @@ export const StyledTetrisWrapper = styled.div`
 
 export const StyledTetris = styled.div`
   display: block;
-  background-color: coral;
   align-items: flex-start;
-  padding: 15px;
-  max-width: 400px;
-
-  aside {
-    width: 100%;
-    display: block;
-    padding: 5px;
-    background-color: green;
-  }
+  max-width: 600px;
+  margin: auto;
+  width: 100%;
 `;
+
+// aside {
+//   width: 100%;
+//   display: inline-block;
+//   padding: 5px;
+// }

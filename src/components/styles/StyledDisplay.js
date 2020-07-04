@@ -3,22 +3,29 @@ import styled from "styled-components";
 export const StyledDisplayWrapper = styled.div`
   display: block;
   justify-items: center;
-  background-color: red;
+  margin: auto;
+  width: 100%;
 `;
 
 export const StyledDisplay = styled.div`
   box-sizing: border-box;
-  display: flex;
-  justify-items: center;
+  display: block;
+  justify-items: right;
   align-items: center;
-  margin: 0 0 20px 0;
+  margin: auto;
+  margin-bottom: 5px;
   padding: 20px;
-  border: 4px solid #333;
+  border: 4px solid #4d2d5f;
   min-height: 20px;
-  width: 100%;
+  max-width: 100%;
+  width: 50%;
   border-radius: 20px;
   color: ${(props) => (props.gameOver ? "red" : "#999")};
-  background: #000;
+  background: #20214c;
   font-family: Pixel, Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;

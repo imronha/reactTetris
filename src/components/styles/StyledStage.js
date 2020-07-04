@@ -1,23 +1,30 @@
 import styled from "styled-components";
 
-// export const StyledStageWrapper = styled.div`
-//   display: block;
-//   width: 100%;
-//   height: 100%;
-//   justify-items;
-//   background-color: red;
-// `;
+export const StyledStageWrapper = styled.div`
+  display: block;
+  width: 100%;
+  position: relative;
+  @media only screen and (max-width: 600px) {
+    background-color: red;
+    width: 100%;
+
+    height: 500px;
+  }
+`;
 
 export const StyledStage = styled.div`
   display: grid;
+  min-height: 100%;
   grid-template-rows: repeat(
     ${(props) => props.height},
-    calc(25vw / ${(props) => props.width})
+    calc(20vw / ${(props) => props.width})
   );
   grid-template-columns: repeat(${(props) => props.width}, 1fr);
   grid-gap: 1px;
   border: 2px solid #333;
-  width: 100%;
-  max-width: 25vw;
+  max-width: 20vw;
   background: #111;
+  margin: auto;
+  margin-bottom: 10px;
+  width: 100%;
 `;
