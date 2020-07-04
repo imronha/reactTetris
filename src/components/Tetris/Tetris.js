@@ -18,7 +18,7 @@ import StartButton from "../StartButton/StartButton";
 const Tetris = () => {
   const [dropTime, setDropTime] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [player, updatePlayerPosition, resetPlayer] = usePlayer();
+  const [player, updatePlayerPosition, resetPlayer, rotatePlayer] = usePlayer();
   const [stage, setStage] = useStage(player, resetPlayer);
 
   console.log("rerender");
@@ -64,6 +64,8 @@ const Tetris = () => {
       } else if (keyCode === 40) {
         // Move player down if down arrow pressed
         dropPlayer();
+      } else if (keyCode === 38) {
+        rotatePlayer(stage, 1);
       }
     }
   };
