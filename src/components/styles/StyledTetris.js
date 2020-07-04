@@ -10,16 +10,16 @@ export const StyledTetrisWrapper = styled.div`
 `;
 
 export const StyledTetris = styled.div`
-    display: flex;
-    align-items: flex-start;
-    padding: 40px;
-    margin 0 auto;
-    max-width: 900px;
+  display: block;
+  background-color: coral;
+  align-items: flex-start;
+  padding: 15px;
+  max-width: 400px;
 
-    aside {
-        width: 100%;
-        max-width: 200px;
-        display: block;
-        padding 0 20px;
-    }
+  aside {
+    width: 100%;
+    display: block;
+    padding: 5px;
+    background-color: green;
+  }
 `;

@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+// export const StyledStageWrapper = styled.div`
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   justify-items;
+//   background-color: red;
+// `;
+
 export const StyledStage = styled.div`
   display: grid;
   grid-template-rows: repeat(

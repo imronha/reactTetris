@@ -20,6 +20,14 @@ export const TETROMINOS = {
     ],
     color: "36, 95, 225",
   },
+  L: {
+    shape: [
+      [0, "L", 0],
+      [0, "L", 0],
+      [0, "L", "L"],
+    ],
+    color: "223, 173, 36",
+  },
   O: {
     shape: [
       ["O", "O"],
@@ -52,7 +60,6 @@ export const TETROMINOS = {
     color: "227, 78, 78",
   },
 };
-
 export const randomTetromino = () => {
   const tetrominos = "IJLOSTZ";
   const randTetromino =
