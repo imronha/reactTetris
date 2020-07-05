@@ -1,68 +1,148 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[React Tetris Live Demo](https://amazing-kalam-046aa5.netlify.app/)
 
-## Available Scripts
+# ReactTetris
 
-In the project directory, you can run:
+ReactTetris is a tetris clone created with React using styled-components, custom hooks, and css. 
 
-### `yarn start`
+## Technologies Used:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* React
+* JavaScript
+* HTML/CSS
+* Styled-Components
+* Custom Hooks
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Features:
 
-### `yarn test`
+![ReactTetris Gif](ReactTetris.gif)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The user can play a full tetris game by moving and rotating tetriminos. Collision detection between tetriminos and game stage area is fully functioning and players can progress through levels as they clear more rows.
 
-### `yarn build`
+### Custom tetriminos and random generator
+Tetriminos created with multidimensional arrays and randomly generated when the user starts the game.
+```Javascript
+  export const TETROMINOS = {
+  0: {
+    shape: [[0]],
+    color: "36, 37, 91",
+  },
+  I: {
+    shape: [
+      [0, "I", 0, 0],
+      [0, "I", 0, 0],
+      [0, "I", 0, 0],
+      [0, "I", 0, 0],
+    ],
+    color: "80, 227, 230",
+  },
+  J: {
+    shape: [
+      [0, "J", 0],
+      [0, "J", 0],
+      ["J", "J", 0],
+    ],
+    color: "36, 95, 225",
+  },
+  L: {
+    shape: [
+      [0, "L", 0],
+      [0, "L", 0],
+      [0, "L", "L"],
+    ],
+    color: "223, 173, 36",
+  },
+  O: {
+    shape: [
+      ["O", "O"],
+      ["O", "O"],
+    ],
+    color: "223, 217, 36",
+  },
+  S: {
+    shape: [
+      [0, "S", "S"],
+      ["S", "S", 0],
+      [0, 0, 0],
+    ],
+    color: "48, 211, 56",
+  },
+  T: {
+    shape: [
+      [0, 0, 0],
+      ["T", "T", "T"],
+      [0, "T", 0],
+    ],
+    color: "132, 61, 198",
+  },
+  Z: {
+    shape: [
+      ["Z", "Z", 0],
+      [0, "Z", "Z"],
+      [0, 0, 0],
+    ],
+    color: "227, 78, 78",
+  },
+};
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export const randomTetromino = () => {
+  const tetrominos = "IJLOSTZ";
+  const randTetromino =
+    tetrominos[Math.floor(Math.random() * tetrominos.length)];
+  return TETROMINOS[randTetromino];
+};
+```
+### Game Loop using custom hook (useInterval)
+Interval is increased everytime the player clears 10 rows to make the game more challenging.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```Javascript
+export function useInterval(callback, delay) {
+  const savedCallback = useRef();
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      const id = setInterval(tick, delay);
+      return () => {
+        clearInterval(id);
+      };
+    }
+  }, [delay]);
+}
+```
 
-### `yarn eject`
+### Player moves using arrow keys
+```Javascript
+  const move = ({ keyCode }) => {
+    if (!gameOver) {
+      // Move player left if left arrow pressed
+      if (keyCode === 37) {
+        movePlayer(-1);
+      } else if (keyCode === 39) {
+        // Move player right if right arrow pressed
+        movePlayer(1);
+      } else if (keyCode === 40) {
+        // Move player down if down arrow pressed
+        dropPlayer();
+      } else if (keyCode === 38) {
+        rotatePlayer(stage, 1);
+      }
+    }
+  };
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Features to implement in next iterations
+* Next component (to show the upcoming tetrimino)
+* Database to keep track of user and high scores
+* UI/UX for mobile compatibility
+* Sounds for tetriminos, collisions, game over, game start, clear rows, and background music
+* Challenge version (challenge friends head to head using socket.io)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
