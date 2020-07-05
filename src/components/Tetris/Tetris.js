@@ -16,6 +16,7 @@ import { useGameStatus } from "../../hooks/useGameStatus";
 import Stage from "../Stage/Stage";
 import Display from "../Display/Display";
 import StartButton from "../StartButton/StartButton";
+import Next from "../Next/Next";
 
 const Tetris = () => {
   const [dropTime, setDropTime] = useState(null);
